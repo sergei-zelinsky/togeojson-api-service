@@ -3,8 +3,11 @@ const DOMParser = require('xmldom').DOMParser;
 const toGeoJSON = require('@mapbox/togeojson');
 const https = require('https');
 const fetch = require('node-fetch');
+const crossdomain = require('./middlewares/crossdomain');
 
 const app = express();
+
+app.use(crossdomain);
 
 app.get('/api/toGeoJSON/kml', function(req, res){
   const kmlURL = req.query.url;
@@ -32,5 +35,5 @@ app.listen(9000, function(error){
   if (error){
     throw error;
   }
-  console.log('Server is running on port 4000.');
+  console.log('Server is running on port 9000.');
 });
