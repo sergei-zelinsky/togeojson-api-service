@@ -14,10 +14,10 @@ const domParser = new DOMParser();
 app.use(crossdomain);
 
 app.get('/', (req, res) => {
-  res.end('OK');
+  res.sendStatus(200);
 });
 
-app.get('/api/toGeoJSON/:inputType', async (req, res) => {
+app.get('/api/toGeoJSON/:inputType/', async (req, res) => {
   const {query: {url}, params: {inputType}} = req;
 
   if (!AVAILABLE_INPUT_FORMATS.includes(inputType) || typeof url === 'undefined'){
