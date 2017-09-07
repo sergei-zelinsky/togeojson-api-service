@@ -1,0 +1,17 @@
+{
+  "name": "to-geojson-service",
+  "version": "1.0.0",
+  "description": "Simple REST API service for converting KML and GPX to GeoJSON using mapbox/togeojson library.",
+  "main": "index.js",
+  "author": "Sergei Zelinsky",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@mapbox/togeojson": "^0.16.0",
+    "express": "^4.15.4",
+    "node-fetch": "^1.7.2",
+    "xmldom": "^0.1.27"
+  }
+}
