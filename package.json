@@ -4,6 +4,7 @@
   "description": "Simple REST API service for converting KML and GPX to GeoJSON using mapbox/togeojson library.",
   "main": "index.js",
   "author": "Sergei Zelinsky",
+  "repository": "https://github.com/sergei-zelinsky/togeojson-api-service",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
