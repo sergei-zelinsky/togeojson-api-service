@@ -5,35 +5,45 @@ const https = require('https');
 const fetch = require('node-fetch');
 const crossdomain = require('./middlewares/crossdomain');
 
+const AVAILABLE_INPUT_FORMATS = ['kml', 'gpx'];
+
 const app = express();
+
+const domParser = new DOMParser();
 
 app.use(crossdomain);
 
-app.get('/api/toGeoJSON/kml', function(req, res){
-  const kmlURL = req.query.url;
-  if (!kmlURL){
-    res.sendStatus(400);
-    return;
-  }
-  const kmlDecodedURL = decodeURIComponent(kmlURL);
-  console.log(kmlDecodedURL);
-  fetch(kmlDecodedURL)
-    .then(function(response){
-      return response.text();
-    })
-    .then(function(xmlString){
-      const xml = new DOMParser().parseFromString(xmlString);
-      const geoJSON = toGeoJSON.kml(xml);
-
-      res.setHeader("Access-Control-Allow-Origin", "*");
-
-      res.json(geoJSON)
-    })
+app.get('/', (req, res) => {
+  res.end('OK');
 });
 
-app.listen(9000, function(error){
-  if (error){
+app.get('/api/toGeoJSON/:inputType', async (req, res) => {
+  const {query: {url}, params: {inputType}} = req;
+
+  if (!AVAILABLE_INPUT_FORMATS.includes(inputType) || typeof url === 'undefined'){
+    return res.sendStatus(400);
+  }
+
+  const decodedURL = decodeURIComponent(url);
+
+  try {
+    const xml = domParser.parseFromString(
+      await (await fetch(decodedURL)).text(),
+      'text/xml'
+    );
+    const geoJSON = toGeoJSON[inputType](xml);
+
+    res.json(geoJSON)
+  } catch (e){
+    res.sendStatus(400);
+  }
+});
+
+const {PORT = 9000} = process.env;
+
+app.listen(PORT, error =>  {
+  if (error) {
     throw error;
   }
-  console.log('Server is running on port 9000.');
+  console.log(`Server is running on port ${PORT}.`);
 });
