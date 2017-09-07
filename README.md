@@ -22,12 +22,12 @@ Simple REST API service for converting KML and GPX to GeoJSON using mapbox/togeo
 
 **Responses:** 
 - `200`- the body of response contains converted GeoJSON
-- `400` - there were some problems (can not load or convert input document)
+- `400` - if there were some problems: can not load or convert input document
+or required params were missed
  
 **URL example:** 
 ```
 /api/toGeoJson/kml?url=http://example.com/path/to/file.kml
-
 ```
 
 or
