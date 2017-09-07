@@ -1,6 +1,15 @@
 # togeojson-api-service
 Simple REST API service for converting KML and GPX to GeoJSON using mapbox/togeojson library.
 
+## Demo
+
+Deployed version of this repository can be accessible by https://togeojson-api-service.herokuapp.com.
+
+[KML Samples](https://developers.google.com/kml/documentation/KML_Samples.kml) document from [KML Tutorial](https://developers.google.com/kml/documentation/kml_tut) was used as an example of the input document.
+
+The conversion result is available [here](https://togeojson-api-service.herokuapp.com/api/toGeoJSON/kml?url=https://developers.google.com/kml/documentation/KML_Samples.kml).
+
+
 ## API
 
 ### `/`
